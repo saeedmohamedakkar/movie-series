@@ -29,7 +29,7 @@ function ContactUs({isDark}) {
             <i className="fas fa-phone" />
             <div >
               <h4>Call us</h4>
-              <span>01095617424</span>
+              <a class="text-decoration-none" href="tel:+201095617424">+201095617424</a>
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@ function ContactUs({isDark}) {
             <i className="far fa-envelope-open" />
             <div >
               <h4>Mail us</h4>
-              <span>saeed.m6063@yahoo.com</span>
+              <a class="text-decoration-none " href="mailto:saeed96mohamed@gmail.com" target="_blank">saeed96mohamed@gmail.com</a>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ function ContactUs({isDark}) {
               <li><Link to="#">Home</Link></li>
               <li><Link to="#">about</Link></li>
               <li><Link to="#">services</Link></li>
-              <li><Link to="#">portfolio</Link></li>
+              <li><Link to="https://portfolio-lac-three-15.vercel.app/"target="blanck">portfolio</Link></li>
               <li><Link to="#">Contact</Link></li>
               <li><Link to="#">About us</Link></li>
               
