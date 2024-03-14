@@ -10,6 +10,10 @@ import { getOneMovie } from './../../redux-system/movieDetailsSlice';
 import { getSeriesReviews } from "../../redux-system/seriesReviewsSlice";
 import { getSeriesKeyWords } from "../../redux-system/seriesKeyWordsSlice";
 import { getSriesCast } from "../../redux-system/seriesCastSlice";
+
+
+
+
 function Nav({ changeBg, isDark }) {
 
   let [isMovie, setIsMovie] = useState(true)
@@ -88,13 +92,13 @@ function Nav({ changeBg, isDark }) {
 
   return (<>
 
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-relative ">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
       <div className="container-fluid">
         <h3 className="navbar-brand mx-2 text-warning">Movies < BiSolidCameraMovie /> </h3>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
+        <div className="collapse navbar-collapse text-center " id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">Home</Link>
@@ -125,12 +129,12 @@ function Nav({ changeBg, isDark }) {
 
             </form>
 
-            <div className="searchDiv container position-absolute  bg-black w-25 d-flex flex-column">
+            <div className="searchDiv container position-absolute  bg-dark w-25 d-flex flex-column ">
               {searchValue.length > 0 ? mySearchValue.map((a, index) => <div key={index}>
 
 
                 <Link className="text-decoration-none" onClick={() => isMovie ? dispatch(getOneMovie(a.id)) : dispatch(getSeriesKeyWords(a.id)) && dispatch(getSriesCast(a.id)) && dispatch(getSeriesReviews(a.id)) && dispatch(getOneSries(a.id))} to={isMovie ? `/movieDetails/${a.id}` : `/seriesDetails/${a.id}`}>
-                  <p className="text-info ">{isMovie ? a.original_title : a.name}</p>
+                  <p className="text-info my-3">{isMovie ? a.original_title : a.name}</p>
                 </Link>
               </div>) : ""}
             </div>
@@ -142,8 +146,7 @@ function Nav({ changeBg, isDark }) {
       </div>
 
     </nav>
-
-
+   
   </>
   );
 }
