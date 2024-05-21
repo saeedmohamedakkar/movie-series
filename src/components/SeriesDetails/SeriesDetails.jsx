@@ -192,7 +192,8 @@ function SeriesDetails() {
 
 
     {/* ////////////////////////// */}
-    <div className="container my-5   ">
+
+    <div className="container my-5">
 
       <div className="row">
 
@@ -240,6 +241,7 @@ function SeriesDetails() {
 
 
         <div className="col-lg-3  text-center">
+
           <p>original Name</p>
 
           {oneSeries ? <p className="text-info">{oneSeries.original_name}</p> : "not available"}
@@ -320,7 +322,7 @@ function SeriesDetails() {
       <p className="text-warning">Reviews ({seriesReviews ? seriesReviews.results.length : ""})</p>
 
       {seriesReviews && seriesReviews.results.length > 0 ? <div> <h2>A review by <p className="text-info d-inline ">{seriesReviews.results[0].author ? seriesReviews.results[0].author : "user"}</p> </h2>
-        <p>Written on <p className="text-info d-inline ">{seriesReviews.results[0].created_at}</p></p>
+        <p>Written on <span className="text-info d-inline ">{seriesReviews.results[0].created_at}</span></p>
         <p className="text-info">content</p>
         <p className="text-secondary">{seriesReviews.results[0].content ? seriesReviews.results[0].content : ""}</p>
 

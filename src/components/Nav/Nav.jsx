@@ -94,7 +94,7 @@ function Nav({ changeBg, isDark }) {
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
       <div className="container-fluid">
-        <h3 className="navbar-brand mx-2 text-warning">Movies < BiSolidCameraMovie /> </h3>
+        <h3 className="navbar-brand mx-2 text-warning">Movies< BiSolidCameraMovie className="mx-2" /> </h3>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
@@ -112,32 +112,10 @@ function Nav({ changeBg, isDark }) {
             <li className="nav-item">
               <Link className="nav-link" to="/contactUs">Contact Us</Link>
             </li>
+            <li className="nav-item">
+              <button onClick={(e) => changeBg(e)} className={isDark ? "mx-3 btn btn-dark text-info" : "mx-3 btn btn-dark text-warning"}>{isDark ? <BsMoonStars /> : <BsSun />}</button>
+            </li>
 
-            <form className="d-flex mx-5">
-
-
-              <li className="nav-item">
-                <input onKeyUp={(e) => isMovie ? movieSearch() : seriesSearch()} onChange={(e) => setSearchValue(e.target.value)} className="form-control me-2" type="search" placeholder={isMovie ? "Search Movies" : "Search Series"} aria-label="Search" />
-              </li><li className="nav-item">
-                <button onClick={(e) => itIsMovie(e)} className={isMovie ? "btn btn-success mx-2" : "btn btn-outline-success mx-2"} type="submit">Search Movies</button>
-              </li><li className="nav-item">
-                <button onClick={(e) => itIsSeries(e)} className={isMovie ? "btn btn-outline-info" : "btn btn-info"} type="submit">Search Series</button>
-              </li>
-              <li className="nav-item">
-                <button onClick={(e) => changeBg(e)} className={isDark ? "mx-3 btn btn-dark text-info" : "mx-3 btn btn-dark text-warning"}>{isDark ? <BsMoonStars /> : <BsSun />}</button>
-              </li>
-
-            </form>
-
-            <div className="searchDiv container position-absolute  bg-dark w-25 d-flex flex-column ">
-              {searchValue.length > 0 ? mySearchValue.map((a, index) => <div key={index}>
-
-
-                <Link className="text-decoration-none" onClick={() => isMovie ? dispatch(getOneMovie(a.id)) : dispatch(getSeriesKeyWords(a.id)) && dispatch(getSriesCast(a.id)) && dispatch(getSeriesReviews(a.id)) && dispatch(getOneSries(a.id))} to={isMovie ? `/movieDetails/${a.id}` : `/seriesDetails/${a.id}`}>
-                  <p className="text-info my-3">{isMovie ? a.original_title : a.name}</p>
-                </Link>
-              </div>) : ""}
-            </div>
 
           </ul>
 
@@ -146,7 +124,67 @@ function Nav({ changeBg, isDark }) {
       </div>
 
     </nav>
-   
+    {/* ///////////////////////////////////////////////////////////////////////////////////////// */}
+
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
+      <div className="container-fluid">
+
+        <div className="collapse navbar-collapse  " id="navbarNav">
+          <ul className="navbar-nav">
+
+
+          </ul>
+
+
+        </div>
+      </div>
+
+    </nav>
+    {/* //////////////////////////////// */}
+
+    <form>
+
+
+      <div className="container-fluid my-5">
+
+        <div className="row ">
+
+          <div className="col-lg-6 my-2">
+
+            <input onKeyUp={(e) => isMovie ? movieSearch() : seriesSearch()} onChange={(e) => setSearchValue(e.target.value)} className="form-control   " type="search" placeholder={isMovie ? "Search Movies" : "Search Series"} />
+
+
+          </div>
+
+          <div className="col-lg-6 my-2 ">
+            <button onClick={(e) => itIsMovie(e)} className={isMovie ? "btn btn-success mx-2" : "btn btn-outline-success mx-2"} type="submit">Search Movies</button>
+
+            <button onClick={(e) => itIsSeries(e)} className={isMovie ? "btn btn-outline-info " : "btn btn-info"} type="submit">Search Series</button>
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+
+
+    </form>
+
+    <div className="searchDiv container position-absolute  bg-dark w-50 d-flex flex-column">
+      {searchValue.length > 0 ? mySearchValue.map((a, index) => <div key={index}>
+
+
+        <Link className="text-decoration-none" onClick={() => isMovie ? dispatch(getOneMovie(a.id)) : dispatch(getSeriesKeyWords(a.id)) && dispatch(getSriesCast(a.id)) && dispatch(getSeriesReviews(a.id)) && dispatch(getOneSries(a.id))} to={isMovie ? `/movieDetails/${a.id}` : `/seriesDetails/${a.id}`}>
+          <p className="searchValue text-info">{isMovie ? a.original_title : a.name}</p>
+        </Link>
+      </div>) : ""}
+    </div>
+
+    {/* /////////////////////////////////////// */}
   </>
   );
 }
