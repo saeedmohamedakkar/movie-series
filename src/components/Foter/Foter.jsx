@@ -18,9 +18,12 @@ function Foter() {
       <p>About Us</p>
       <p className="mx-3">Terms of us</p>
       <p>Privacy</p>
+      
     </div>
 
-
+<div className="text-center">
+  <p className=" text-info">Created By Saeed Mohamed</p>
+</div>
   </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { React, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getTopMovies } from './../../redux-system/topMoviesSlice';
 import { Carousel } from 'react-responsive-carousel';
@@ -238,3 +238,8 @@ function Home() {
 }
 
 export default Home
+
+
+
+
+

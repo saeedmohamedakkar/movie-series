@@ -65,10 +65,10 @@ function MovieDetails({ isDark }) {
 
 
   // useEffect(() => {
-  fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
-    .then(response => response.json())
-    .then(response => setCast(response))
-    .catch(err => setCastErr(err));
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
+      .then(response => response.json())
+      .then(response => setCast(response))
+      .catch(err => setCastErr(err));
   // }, [])
   /////////////////////////////////////////////////////////////////////////////////////////////
   // get key words
@@ -80,34 +80,34 @@ function MovieDetails({ isDark }) {
     }
   };
   // useEffect(() => {
-  fetch(`https://api.themoviedb.org/3/movie/${movieId}/keywords`, getKeys)
-    .then(response => response.json())
-    .then(response => setKeywords(response.keywords))
-    .catch(err => setKeywordsError(err));
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}/keywords`, getKeys)
+      .then(response => response.json())
+      .then(response => setKeywords(response.keywords))
+      .catch(err => setKeywordsError(err));
   // }, [])
 
 
   ///////////////////////////////////////////////////////
   // get reviews
   // useEffect(() => {
-  const getReviews = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
-    }
-  };
+    const getReviews = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+      }
+    };
 
-  fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, getReviews)
-    .then(response => response.json())
-    .then(response => setReviews(response.results))
-    .catch(err => setRreviewsErr(err));
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, getReviews)
+      .then(response => response.json())
+      .then(response => setReviews(response.results))
+      .catch(err => setRreviewsErr(err));
   // }, [])
   ///////////////////////////////////////////////////////
 
 
   setTimeout(() => {
-    // useEffect(() => {
+
 
     const options = {
       method: 'GET',
@@ -121,7 +121,7 @@ function MovieDetails({ isDark }) {
       .then(response => response.json())
       .then(response => setCollection(response))
       .catch(err => setCollErr(err));
-    // }, [])
+
   }, 1000);
 
 
@@ -175,11 +175,11 @@ function MovieDetails({ isDark }) {
           <div className="container my-3 ">
             <div className="row">
               <div className="col-lg-6">
-                <h3 className="" >{cast.cast && cast.cast[0] ? cast.cast[0].name : ""}</h3>
+                <h3 className="" >{cast.cast&&cast.cast[0] ? cast.cast[0].name : ""}</h3>
                 <p className="text-info">Acting</p>
               </div>
               <div className="col-lg-6">
-                <h3>{cast.cast && cast.cast[1] ? cast.cast[1].name : ""}</h3>
+                <h3>{cast.cast &&cast.cast[1] ? cast.cast[1].name : ""}</h3>
                 <p className="text-info">Acting</p>
               </div>
             </div>
@@ -195,20 +195,20 @@ function MovieDetails({ isDark }) {
           <div className="container my-5 ">
             <div className="row">
               <div className="col-lg-4">
-                <h3>{cast.crew && cast.crew[0] ? cast.crew[0].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew && cast.crew[0] ? cast.crew[0].department : ""}</p>
+                <h3>{cast.crew&&cast.crew[0] ? cast.crew[0].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew&&cast.crew[0] ? cast.crew[0].department : ""}</p>
               </div>
               <div className="col-lg-4">
 
-                <h3 >{cast.crew && cast.crew[1] ? cast.crew[1].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew && cast.crew[1] ? cast.crew[1].department : ""}</p>
+                <h3 >{cast.crew&&cast.crew[1] ? cast.crew[1].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew&&cast.crew[1] ? cast.crew[1].department : ""}</p>
 
               </div>
               <div className="col-lg-4">
 
 
-                <h3>{cast.crew && cast.crew[2] ? cast.crew[2].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew && cast.crew[2] ? cast.crew[2].department : ""}</p>
+                <h3>{cast.crew&&cast.crew[2] ? cast.crew[2].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew&&cast.crew[2] ? cast.crew[2].department : ""}</p>
               </div>
             </div>
 
@@ -248,7 +248,7 @@ function MovieDetails({ isDark }) {
 
 
 
-                        <iframe width="560" height="315" src={`https://www.youtube.com/embed/${trailer && trailer.length > 0 ? trailer[0].key : ""}?si=twsn3yqm1hIZ4-kv`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        <iframe width="560" height="315" src={`https://www.youtube.com/embed/${trailer.length > 0 ? trailer[0].key : ""}?si=twsn3yqm1hIZ4-kv`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
                       </div>
                     </div>
@@ -372,8 +372,8 @@ function MovieDetails({ isDark }) {
 
           <p className="my-2 text-warning ">Reviews {reviews.length}</p>
 
-          {reviews.length > 0 ? <div> <h2>A review by <span className="text-info d-inline ">{reviews[0].author ? reviews[0].author : "user"}</span> </h2>
-            <p>Written on <span className="text-info d-inline ">{reviews[0].created_at}</span></p>
+          {reviews.length > 0 ? <div> <h2>A review by <p className="text-info d-inline ">{reviews[0].author ? reviews[0].author : "user"}</p> </h2>
+            <p>Written on <p className="text-info d-inline ">{reviews[0].created_at}</p></p>
             <p className="text-info">content</p>
             <p className="text-secondary">{reviews[0].content ? reviews[0].content : ""}</p>
 
@@ -463,3 +463,15 @@ export default MovieDetails
 
 
 
+// {cast.cast ? <Carousel showThumbs={false}>
+//                 {cast.cast.map((act) => <div key={act.id}>
+//                   <div className="my-4">
+//                     <p>{act.name}</p>
+//                     <p>{act.known_for_department}</p>
+//                     <img className="w-25 my-5" src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${act.profile_path}`} alt="not available" />
+
+//                   </div>
+
+//                 </div>)}
+//               </Carousel>
+//                 : ""}

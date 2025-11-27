@@ -8,7 +8,7 @@ function MovieReviews() {
   let [reviews, setReviews] = useState([])
 
   let [reviewsErr, setRreviewsErr] = useState(null)
-  
+  console.log(reviews);
   useEffect(() => {
     const getReviews = {
       method: 'GET',
@@ -36,7 +36,7 @@ function MovieReviews() {
         {reviews.length > 0 ? reviews.map((rev) => <div className="col-lg-6 my-5" key={rev.id}>
 
           <h3>A review by <p className="text-info d-inline ">{rev.author ? rev.author : "user"}</p> </h3>
-          <p>Written on <span className="text-info d-inline ">{rev.created_at}</span></p>
+          <p>Written on <p className="text-info d-inline ">{rev.created_at}</p></p>
 
 
           <p className="text-info">content</p>
