@@ -10,7 +10,7 @@ import ReactStars from "react-rating-stars-component";
 import { getTopRatedSeries } from "../../redux-system/topRatedSeriesSlice";
 import { Link } from 'react-router-dom';
 import { getOneMovie } from './../../redux-system/movieDetailsSlice';
-import { getOneSries } from "../../redux-system/SeriesDetailsSlice";
+import { getOneSeries } from "../../redux-system/SeriesDetailsSlice";
 
 function Home() {
 
@@ -107,7 +107,7 @@ function Home() {
     <div className="container my-5 ">
       {allTopSeries.results ? <Carousel showThumbs={false}>
         {allTopSeries.results.map((series) => < div key={series.id}>
-          <Link onClick={() => dispatch(getOneSries(series.id))} to={`/seriesDetails/${series.id}`}>
+          <Link onClick={() => dispatch(getOneSeries(series.id))} to={`/seriesDetails/${series.id}`}>
             <div className="my-5">
               <img loading="lazy" className="w-25" src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${series.poster_path}`} alt="series" />
             </div>
@@ -190,7 +190,7 @@ function Home() {
 
 
             <div key={series.id} className="col-lg-4 text-center my-5 ">
-              <Link onClick={() => dispatch(getOneSries(series.id))} to={`/seriesDetails/${series.id}`}>
+              <Link onClick={() => dispatch(getOneSeries(series.id))} to={`/seriesDetails/${series.id}`}>
                 <img loading="lazy" className="TopRatedMoviesImages w-50 my-1" src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${series.poster_path}`} alt="Series" />
               </Link>
               <p className="my-1">{series.name}</p>

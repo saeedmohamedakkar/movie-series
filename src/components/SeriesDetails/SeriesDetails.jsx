@@ -19,6 +19,14 @@ function SeriesDetails() {
 
   const { isLoading, oneSeriesErr, oneSeries, lastSes } = useSelector(state => state.mySeries)
 
+  useEffect(() => {
+    if (!oneSeries && seriesId) {
+      // dynamic require to avoid top-level import ordering issues
+      const { getOneSeries } = require('../../redux-system/SeriesDetailsSlice')
+      dispatch(getOneSeries(seriesId))
+    }
+  }, [oneSeries, seriesId, dispatch])
+
   const { seriesCastErr, seriesCast } = useSelector(state => state.mySeriesCast)
 
   const { seriesKeyWord, seriesKeyWordsErr } = useSelector(state => state.seriesKeyWord)

@@ -1,16 +1,27 @@
-import React from "react"
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 
 
 
 function SeriesReviews() {
+    const { Id } = useParams();
+
+    const dispatch = useDispatch();
+
+    const { seriesReviews, seriesReviewsErr } = useSelector(state => state.seriesReviews);
+
+    useEffect(() => {
+        if (!seriesReviews && Id) {
+            // dynamic require to avoid top-level import ordering issues
+            const { getSeriesReviews } = require('../../redux-system/seriesReviewsSlice');
+            
+            dispatch(getSeriesReviews(Id))
+        }
+    }, [seriesReviews, Id, dispatch])
 
 
-
-
-
-    const { seriesReviews, seriesReviewsErr } = useSelector(state => state.seriesReviews)
 
     return (<>
 

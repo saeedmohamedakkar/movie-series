@@ -9,7 +9,7 @@ export const getOneMovie = createAsyncThunk(`getOneMovie`, async (id, thunkAPI) 
     try {
         const theMovie = await axios({
 
-            mmethod: 'GET',
+            method: 'GET',
             url: `https://api.themoviedb.org/3/movie/${id}`,
             params: { language: 'en-US' },
             headers: {

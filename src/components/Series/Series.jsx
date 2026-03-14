@@ -7,7 +7,7 @@ import { MdOutlineNavigateNext } from 'react-icons/md';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import ShowMore from 'react-show-more-button';
 import { Link } from 'react-router-dom';
-import { getOneSries } from "../../redux-system/SeriesDetailsSlice";
+import { getOneSeries } from "../../redux-system/SeriesDetailsSlice";
 
 function Series({ isDark }) {
 
@@ -55,7 +55,7 @@ function Series({ isDark }) {
 
 
             <div key={series.id} className="col-lg-4 text-center my-5 ">
-              <Link onClick={() => dispatch(getOneSries(series.id))} to={`/seriesDetails/${series.id}`}>
+              <Link onClick={() => dispatch(getOneSeries(series.id))} to={`/seriesDetails/${series.id}`}>
                 <img loading="lazy" className="TopRatedMoviesImages w-50 my-1" src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${series.poster_path}`} alt="series" />
               </Link>
               <p className="my-2">{series.name}</p>

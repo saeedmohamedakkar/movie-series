@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getOneSries = createAsyncThunk("getOneSries", async (id, thunkAPI) => {
+export const getOneSeries = createAsyncThunk("getOneSeries", async (id, thunkAPI) => {
 
     const { rejectWithValue } = thunkAPI
 
@@ -41,14 +41,14 @@ const oneSeriesSlice = createSlice({
 
     extraReducers: (builder) => {
 
-        builder.addCase(getOneSries.pending, (state) => { state.isLoading = true });
+        builder.addCase(getOneSeries.pending, (state) => { state.isLoading = true });
 
-        builder.addCase(getOneSries.fulfilled, (state, action) => {
+        builder.addCase(getOneSeries.fulfilled, (state, action) => {
             state.isLoading = false
             state.oneSeries = action.payload
         });
 
-        builder.addCase(getOneSries.rejected, (state, action) => {
+        builder.addCase(getOneSeries.rejected, (state, action) => {
             state.isLoading = false
             state.oneSeriesErr = action.payload.message
         });

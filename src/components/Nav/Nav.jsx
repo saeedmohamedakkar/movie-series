@@ -5,7 +5,7 @@ import { BsMoonStars } from "react-icons/bs";
 import { BsSun } from "react-icons/bs";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
-import { getOneSries } from "../../redux-system/SeriesDetailsSlice";
+import { getOneSeries } from "../../redux-system/SeriesDetailsSlice";
 import { getOneMovie } from './../../redux-system/movieDetailsSlice';
 import { getSeriesReviews } from "../../redux-system/seriesReviewsSlice";
 import { getSeriesKeyWords } from "../../redux-system/seriesKeyWordsSlice";
@@ -159,7 +159,7 @@ function Nav({ changeBg, isDark }) {
                         dispatch(getSeriesKeyWords(item.id));
                         dispatch(getSriesCast(item.id));
                         dispatch(getSeriesReviews(item.id));
-                        dispatch(getOneSries(item.id));
+                        dispatch(getOneSeries(item.id));
                       }
                     }}
                   >

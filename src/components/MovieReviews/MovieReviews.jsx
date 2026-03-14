@@ -8,7 +8,6 @@ function MovieReviews() {
   let [reviews, setReviews] = useState([])
 
   let [reviewsErr, setRreviewsErr] = useState(null)
-  console.log(reviews);
   useEffect(() => {
     const getReviews = {
       method: 'GET',

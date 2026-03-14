@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactLoading from 'react-loading';
 import { CgPlayListCheck } from "react-icons/cg";
 import { MdStarRate } from "react-icons/md";
@@ -14,6 +14,15 @@ function MovieDetails({ isDark }) {
   const { movieId } = useParams()
 
   const { movi, isLoading, err } = useSelector((state) => state.myMovie)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!movi && movieId) {
+      // dynamic require used to avoid top-level import ordering issues
+      const { getOneMovie } = require('../../redux-system/movieDetailsSlice')
+      dispatch(getOneMovie(movieId))
+    }
+  }, [movi, movieId, dispatch])
 
   let [cast, setCast] = useState([])
 
@@ -45,10 +54,14 @@ function MovieDetails({ isDark }) {
     }
   };
 
-  fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
-    .then(response => response.json())
-    .then(response => setTrailer(response.results))
-    .catch(err => console.log(err));
+  useEffect(() => {
+    if (movieId) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
+        .then(response => response.json())
+        .then(response => setTrailer(response.results))
+        .catch(err => console.log(err));
+    }
+  }, [])
 
 
 
@@ -64,12 +77,14 @@ function MovieDetails({ isDark }) {
 
 
 
-  // useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
-      .then(response => response.json())
-      .then(response => setCast(response))
-      .catch(err => setCastErr(err));
-  // }, [])
+  useEffect(() => {
+    if (movieId) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
+        .then(response => response.json())
+        .then(response => setCast(response))
+        .catch(err => setCastErr(err));
+    }
+  }, [])
   /////////////////////////////////////////////////////////////////////////////////////////////
   // get key words
   const getKeys = {
@@ -79,17 +94,19 @@ function MovieDetails({ isDark }) {
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
     }
   };
-  // useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/keywords`, getKeys)
-      .then(response => response.json())
-      .then(response => setKeywords(response.keywords))
-      .catch(err => setKeywordsError(err));
-  // }, [])
+  useEffect(() => {
+    if (movieId) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/keywords`, getKeys)
+        .then(response => response.json())
+        .then(response => setKeywords(response.keywords))
+        .catch(err => setKeywordsError(err));
+    }
+  }, [])
 
 
   ///////////////////////////////////////////////////////
   // get reviews
-  // useEffect(() => {
+  useEffect(() => {
     const getReviews = {
       method: 'GET',
       headers: {
@@ -98,11 +115,13 @@ function MovieDetails({ isDark }) {
       }
     };
 
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, getReviews)
-      .then(response => response.json())
-      .then(response => setReviews(response.results))
-      .catch(err => setRreviewsErr(err));
-  // }, [])
+    if (movieId) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, getReviews)
+        .then(response => response.json())
+        .then(response => setReviews(response.results))
+        .catch(err => setRreviewsErr(err));
+    }
+  }, [])
   ///////////////////////////////////////////////////////
 
 
@@ -117,10 +136,12 @@ function MovieDetails({ isDark }) {
       }
     };
 
-    fetch(`https://api.themoviedb.org/3/collection/${movi && movi.belongs_to_collection ? movi.belongs_to_collection.id : ""}?language=en-US`, options)
-      .then(response => response.json())
-      .then(response => setCollection(response))
-      .catch(err => setCollErr(err));
+    if (movi?.belongs_to_collection?.id) {
+      fetch(`https://api.themoviedb.org/3/collection/${movi.belongs_to_collection.id}?language=en-US`, options)
+        .then(response => response.json())
+        .then(response => setCollection(response))
+        .catch(err => setCollErr(err));
+    }
 
   }, 1000);
 
