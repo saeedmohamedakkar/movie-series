@@ -84,16 +84,19 @@ function MovieDetails({ isDark }) {
         .then(response => setCast(response))
         .catch(err => setCastErr(err));
     }
-  }, [movieId])
+  }, [movieId, options])
   /////////////////////////////////////////////////////////////////////////////////////////////
   // get key words
-  const getKeys = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+  const getKeys = useMemo(() => {
+    return {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+      }
     }
-  };
+  }, []);
+
   useEffect(() => {
     if (movieId) {
       fetch(`https://api.themoviedb.org/3/movie/${movieId}/keywords`, getKeys)
@@ -101,7 +104,7 @@ function MovieDetails({ isDark }) {
         .then(response => setKeywords(response.keywords))
         .catch(err => setKeywordsError(err));
     }
-  }, [movieId,  getKeys])
+  }, [movieId, getKeys])
 
 
   ///////////////////////////////////////////////////////
