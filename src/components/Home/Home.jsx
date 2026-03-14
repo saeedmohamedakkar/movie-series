@@ -40,7 +40,7 @@ function Home() {
     setTimeout(() => {
       dispatch(getTopMovies())
     }, 500);
-  }, [])
+  }, [dispatch])
   /////////////////////////////////
 
   useEffect(() => {
@@ -54,13 +54,13 @@ function Home() {
     setTimeout(() => {
       dispatch(getTopRatedMovies())
     }, 500);
-  }, [])
+  }, [dispatch])
   ////////////////////////////////////
   useEffect(() => {
     setTimeout(() => {
       dispatch(getTopRatedSeries())
     }, 500);
-  }, [])
+  }, [dispatch])
 
 
   return (<>

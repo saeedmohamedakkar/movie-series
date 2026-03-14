@@ -28,7 +28,7 @@ function Series({ isDark }) {
     setTimeout(() => {
       dispatch(getSeries(1))
     }, 500);
-  }, [])
+  }, [dispatch])
 
   //////////////////////////////////
 
@@ -98,8 +98,8 @@ function Series({ isDark }) {
               {[-2, -1, 0, 1, 2].map((num) => {
                 const page = allSeries.page + num;
 
-                if (page < 1) return
-                if (page > 500) return
+                if (page < 1) return null
+                if (page > 500) return null
                 return <li className="page-item" key={num}>
                   < button onClick={() => dispatch(getSeries(page))} className={num === 0 ? 'active page-link ' : 'page-link'}>{page}</button>
                 </li>

@@ -17,7 +17,7 @@ function SeriesDetails() {
 
   const dispatch = useDispatch()
 
-  const { isLoading, oneSeriesErr, oneSeries, lastSes } = useSelector(state => state.mySeries)
+  const { isLoading, oneSeriesErr, oneSeries } = useSelector(state => state.mySeries)
 
   useEffect(() => {
     if (!oneSeries && seriesId) {
@@ -27,25 +27,26 @@ function SeriesDetails() {
     }
   }, [oneSeries, seriesId, dispatch])
 
-  const { seriesCastErr, seriesCast } = useSelector(state => state.mySeriesCast)
+  const { seriesCast } = useSelector(state => state.mySeriesCast)
 
   const { seriesKeyWord, seriesKeyWordsErr } = useSelector(state => state.seriesKeyWord)
 
-  const { seriesReviews, seriesReviewsErr } = useSelector(state => state.seriesReviews)
+  const { seriesReviews } = useSelector(state => state.seriesReviews)
 
   let [trailer, setTrailer] = useState([])
 
   useEffect(() => {
     dispatch(getSriesCast(seriesId))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getSeriesKeyWords(seriesId))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getSeriesReviews(seriesId))
-  }, [])
+  }, [dispatch
+  ])
 
 
   /////////////////////////////
@@ -66,7 +67,7 @@ function SeriesDetails() {
       setTrailer(response.data.results);
     })
     .catch(function (error) {
-      // console.error(error);
+      
     });
   ////////////////////////////
 

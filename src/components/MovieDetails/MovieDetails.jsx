@@ -34,11 +34,11 @@ function MovieDetails({ isDark }) {
 
   let [reviews, setReviews] = useState([])
 
-  let [reviewsErr, setRreviewsErr] = useState(null)
+  let [ setRreviewsErr] = useState(null)
 
   let [collection, setCollection] = useState([])
 
-  let [collErr, setCollErr] = useState(null)
+  let [ setCollErr] = useState(null)
 
   let [trailer, setTrailer] = useState([])
 
@@ -54,16 +54,16 @@ function MovieDetails({ isDark }) {
     }
   };
 
-  useEffect(() => {
-    if (movieId) {
-      fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
-        .then(response => response.json())
-        .then(response => setTrailer(response.results))
-        .catch(err => console.log(err));
-    }
-  }, [])
+  
 
-
+useEffect(() => {
+  if (movieId) {
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
+      .then(response => response.json())
+      .then(response => setTrailer(response.results))
+      .catch(err => console.log(err));
+  }
+}, [movieId, moviTrailer]);
 
   //////////////////////////
   // get actors and Casting
@@ -84,7 +84,7 @@ function MovieDetails({ isDark }) {
         .then(response => setCast(response))
         .catch(err => setCastErr(err));
     }
-  }, [])
+  }, [movieId, options])
   /////////////////////////////////////////////////////////////////////////////////////////////
   // get key words
   const getKeys = {
@@ -101,7 +101,7 @@ function MovieDetails({ isDark }) {
         .then(response => setKeywords(response.keywords))
         .catch(err => setKeywordsError(err));
     }
-  }, [])
+  }, [movieId , options])
 
 
   ///////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ function MovieDetails({ isDark }) {
         .then(response => setReviews(response.results))
         .catch(err => setRreviewsErr(err));
     }
-  }, [])
+  }, [movieId , options])
   ///////////////////////////////////////////////////////
 
 

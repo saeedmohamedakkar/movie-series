@@ -25,7 +25,7 @@ function Movies({ isDark }) {
     setTimeout(() => {
       dispatch(getMovies(1));
     }, 500);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

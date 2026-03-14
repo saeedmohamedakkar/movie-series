@@ -5,7 +5,7 @@ import ReactLoading from 'react-loading';
 function SeriesSeasons() {
 
 
-    const { isLoading, oneSeriesErr, oneSeries, lastSes } = useSelector(state => state.mySeries)
+    const { isLoading, oneSeriesErr, oneSeries } = useSelector(state => state.mySeries)
 
     return (<>
 

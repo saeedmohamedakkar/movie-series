@@ -21,7 +21,7 @@ function MovieReviews() {
       .then(response => response.json())
       .then(response => setReviews(response.results))
       .catch(err => setRreviewsErr(err));
-  }, [])
+  }, [movieId])
 
 
   return (<>
