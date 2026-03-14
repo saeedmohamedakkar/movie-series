@@ -37,16 +37,15 @@ function SeriesDetails() {
 
   useEffect(() => {
     dispatch(getSriesCast(seriesId))
-  }, [dispatch])
+  }, [dispatch, seriesId])
 
   useEffect(() => {
     dispatch(getSeriesKeyWords(seriesId))
-  }, [dispatch])
+  }, [dispatch, seriesId])
 
   useEffect(() => {
     dispatch(getSeriesReviews(seriesId))
-  }, [dispatch
-  ])
+  }, [dispatch, seriesId])
 
 
   /////////////////////////////

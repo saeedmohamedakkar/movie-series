@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import ReactLoading from 'react-loading';
@@ -34,46 +34,46 @@ function MovieDetails({ isDark }) {
 
   let [reviews, setReviews] = useState([])
 
-  let [ setRreviewsErr] = useState(null)
+  let [setReviewsErr] = useState(null)
 
   let [collection, setCollection] = useState([])
 
-  let [ setCollErr] = useState(null)
+  let [setCollectionErr] = useState(null)
 
   let [trailer, setTrailer] = useState([])
 
+  const moviTrailer = useMemo(() => {
+    return {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+      }
+    }
+  }, []);
 
   /////////////////////////////
   // get trailer
-
-  const moviTrailer = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+  useEffect(() => {
+    if (movieId) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
+        .then(response => response.json())
+        .then(response => setTrailer(response.results))
+        .catch(err => console.log(err));
     }
-  };
-
-  
-
-useEffect(() => {
-  if (movieId) {
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, moviTrailer)
-      .then(response => response.json())
-      .then(response => setTrailer(response.results))
-      .catch(err => console.log(err));
-  }
-}, [movieId, moviTrailer]);
+  }, [movieId, moviTrailer]);
 
   //////////////////////////
   // get actors and Casting
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+  const options = useMemo(() => {
+    return {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzY3M2IyOTI5MDc5YmJmMWQwOTgxMmEzMWMzMzhkZiIsInN1YiI6IjY1NGMyZTYzZmQ0ZjgwMDBlNDgxZDdkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R8E56ngjOiQMKmlAO8SDEoEl7sq6aKciKIIk34Mop7A'
+      }
     }
-  };
+  }, []);
 
 
 
@@ -84,7 +84,7 @@ useEffect(() => {
         .then(response => setCast(response))
         .catch(err => setCastErr(err));
     }
-  }, [movieId, options])
+  }, [movieId])
   /////////////////////////////////////////////////////////////////////////////////////////////
   // get key words
   const getKeys = {
@@ -101,7 +101,7 @@ useEffect(() => {
         .then(response => setKeywords(response.keywords))
         .catch(err => setKeywordsError(err));
     }
-  }, [movieId , options])
+  }, [movieId,  getKeys])
 
 
   ///////////////////////////////////////////////////////
@@ -119,9 +119,9 @@ useEffect(() => {
       fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, getReviews)
         .then(response => response.json())
         .then(response => setReviews(response.results))
-        .catch(err => setRreviewsErr(err));
+        .catch(err => setReviewsErr(err));
     }
-  }, [movieId , options])
+  }, [movieId, setReviewsErr])
   ///////////////////////////////////////////////////////
 
 
@@ -140,7 +140,7 @@ useEffect(() => {
       fetch(`https://api.themoviedb.org/3/collection/${movi.belongs_to_collection.id}?language=en-US`, options)
         .then(response => response.json())
         .then(response => setCollection(response))
-        .catch(err => setCollErr(err));
+        .catch(err => setCollectionErr(err));
     }
 
   }, 1000);
@@ -196,11 +196,11 @@ useEffect(() => {
           <div className="container my-3 ">
             <div className="row">
               <div className="col-lg-6">
-                <h3 className="" >{cast.cast&&cast.cast[0] ? cast.cast[0].name : ""}</h3>
+                <h3 className="" >{cast.cast && cast.cast[0] ? cast.cast[0].name : ""}</h3>
                 <p className="text-info">Acting</p>
               </div>
               <div className="col-lg-6">
-                <h3>{cast.cast &&cast.cast[1] ? cast.cast[1].name : ""}</h3>
+                <h3>{cast.cast && cast.cast[1] ? cast.cast[1].name : ""}</h3>
                 <p className="text-info">Acting</p>
               </div>
             </div>
@@ -216,20 +216,20 @@ useEffect(() => {
           <div className="container my-5 ">
             <div className="row">
               <div className="col-lg-4">
-                <h3>{cast.crew&&cast.crew[0] ? cast.crew[0].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew&&cast.crew[0] ? cast.crew[0].department : ""}</p>
+                <h3>{cast.crew && cast.crew[0] ? cast.crew[0].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew && cast.crew[0] ? cast.crew[0].department : ""}</p>
               </div>
               <div className="col-lg-4">
 
-                <h3 >{cast.crew&&cast.crew[1] ? cast.crew[1].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew&&cast.crew[1] ? cast.crew[1].department : ""}</p>
+                <h3 >{cast.crew && cast.crew[1] ? cast.crew[1].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew && cast.crew[1] ? cast.crew[1].department : ""}</p>
 
               </div>
               <div className="col-lg-4">
 
 
-                <h3>{cast.crew&&cast.crew[2] ? cast.crew[2].name : ""}</h3>
-                <p className="text-info mx-auto">{cast.crew&&cast.crew[2] ? cast.crew[2].department : ""}</p>
+                <h3>{cast.crew && cast.crew[2] ? cast.crew[2].name : ""}</h3>
+                <p className="text-info mx-auto">{cast.crew && cast.crew[2] ? cast.crew[2].department : ""}</p>
               </div>
             </div>
 

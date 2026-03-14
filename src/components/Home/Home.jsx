@@ -47,7 +47,7 @@ function Home() {
     setTimeout(() => {
       dispatch(getTopSeries())
     }, 500);
-  }, [])
+  }, [dispatch])
   /////////////////////////////////
 
   useEffect(() => {
